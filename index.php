@@ -24,22 +24,9 @@ foreach($classes['classes'] as $classkey=>$class) //Class columns
 	echo "\t<tr>\n";
 	foreach($races['races'] as $racekey=>$race) //Race rows
 	{
-
-		//die();
 		if($race['side']!='alliance')
 			continue;
-		//$text='';
-		//var_dump($class);
-		//On the first race iteration make 
 
-		
-		/*if($racekey==0) //Make race column
-		{
-			$text=$race['name'];
-		}*/
-		/*if($classkey==0)
-			$text=$class['name'];*/
-		//var_dump($racekey);
 		if($racekey==3 && is_array($class)) //For the first race (the first column) add an extra column with the class
 			echo "\t   <th>{$class['name']}</th>\n";
 		elseif($racekey==3)
@@ -57,7 +44,6 @@ foreach($classes['classes'] as $classkey=>$class) //Class columns
 				foreach($sortedmembers[$race['id']][$class['id']] as $member)
 				{
 					$text.="{$member['character']['name']} ({$member['character']['level']})<br />\n\t\t";
-					//break;
 				}
 			}
 			else
