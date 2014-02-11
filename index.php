@@ -11,6 +11,20 @@ $title="{$guild['name']} - {$guild['realm']} ({$guild['level']})";
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><?Php echo $title; ?></title>
+<style type="text/css">
+.invalidcombo {
+	background-color: #666;
+}
+.missing {
+	background-color: #F00;
+}
+.issue {
+	background-color: #FF0;
+}
+.good {
+	background-color: #0C0;
+}
+</style>
 </head>
 
 <body>
@@ -41,18 +55,40 @@ foreach($classes['classes'] as $classkey=>$class) //Class columns
 		{
 			if(isset($sortedmembers[$race['id']][$class['id']]))
 			{
-				foreach($sortedmembers[$race['id']][$class['id']] as $member)
+				$count=count($sortedmembers[$race['id']][$class['id']]); //Count the members
+				unset($valid,$allmembers);
+				$validcount=0;
+				foreach($sortedmembers[$race['id']][$class['id']] as $key=>$member)
 				{
-					$text.="{$member['character']['name']} ({$member['character']['level']})<br />\n\t\t";
+					$text="{$member['character']['name']} ({$member['character']['level']})<br />\n\t\t";
+					$allmembers[]=$text;
+					if($member['character']['level']>=85)
+					{
+						$valid[]=$text;
+						$validcount++;
+					}
+					if(!isset($valid) && $key==$count-1)
+					{
+						$celltext=implode("",$allmembers);
+						$cellclass='issue';
+					}
+					else
+					{
+						$celltext=implode("",$valid);
+						$cellclass='good';
+						if($validcount>=10) //Do not display more than 10 lv 90
+							break;
+					}
+
 				}
+				echo "\t   <td class=\"$cellclass\">".trim($celltext)."</td>\n";
 			}
 			else
-				$text="No members";
+				echo "\t   <td class=\"missing\">No members</td>";
+
 		}
 		else
-			$text="&nbsp;"; //Invalid combination
-		
-		echo "\t   <td>".trim($text)."</td>\n";
+			echo "\t   <td class=\"invalidcombo\">&nbsp;</td>\n"; //Invalid combination
 
 		unset($text);
 	}
