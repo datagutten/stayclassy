@@ -1,5 +1,8 @@
 <?Php
-require 'guild.php';
+require 'guildinfo.php';
+$guildinfo=guildinfo($_GET['realm'],$_GET['guild']);
+$guild=$guildinfo['guild'];
+
 $races=json_decode(file_get_contents("http://eu.battle.net/api/wow/data/character/races"),true);
 $classes=json_decode(file_get_contents("http://eu.battle.net/api/wow/data/character/classes"),true);
 $combos=json_decode(file_get_contents('combos.json'),true);
@@ -53,13 +56,13 @@ foreach($classes['classes'] as $classkey=>$class) //Class columns
 		}
 		elseif(isset($combos[$race['id']][$class['id']]))
 		{
-			if(isset($sortedmembers[$race['id']][$class['id']]))
+			if(isset($guildinfo['sortedmembers'][$race['id']][$class['id']]))
 			{
 				$count=count($sortedmembers[$race['id']][$class['id']]); //Count the members
 				unset($valid,$allmembers);
 				$validcount=0;
 				$lowlevelcount=0;
-				foreach($sortedmembers[$race['id']][$class['id']] as $key=>$member)
+				foreach($guildinfo['sortedmembers'][$race['id']][$class['id']] as $key=>$member)
 				{
 					$text="{$member['character']['name']} ({$member['character']['level']})<br />\n\t\t";
 					$allmembers[]=$text;
