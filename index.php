@@ -58,29 +58,36 @@ foreach($classes['classes'] as $classkey=>$class) //Class columns
 				$count=count($sortedmembers[$race['id']][$class['id']]); //Count the members
 				unset($valid,$allmembers);
 				$validcount=0;
+				$lowlevelcount=0;
 				foreach($sortedmembers[$race['id']][$class['id']] as $key=>$member)
 				{
 					$text="{$member['character']['name']} ({$member['character']['level']})<br />\n\t\t";
 					$allmembers[]=$text;
-					if($member['character']['level']>=85)
+					if($member['character']['level']>=85) //Valid member found
 					{
 						$valid[]=$text;
 						$validcount++;
 					}
-					if(!isset($valid) && $key==$count-1)
+					elseif($lowlevelcount<=10) //Low level member (max 10)
 					{
-						$celltext=implode("",$allmembers);
-						$cellclass='issue';
-					}
-					else
-					{
-						$celltext=implode("",$valid);
-						$cellclass='good';
-						if($validcount>=10) //Do not display more than 10 lv 90
-							break;
+						$lowlevel[]=$text;
+						$lowlevelcount++;
 					}
 
+					if($validcount>=10) //Do not display more than 10 lv 90
+						break;
 				}
+				if(!isset($valid)) //No valid members found, show all members
+				{
+					$celltext=implode("",$allmembers);
+					$cellclass='issue';
+				}
+				else //Display the members
+				{
+					$celltext=implode("",$valid);
+					$cellclass='good';
+				}
+
 				echo "\t   <td class=\"$cellclass\">".trim($celltext)."</td>\n";
 			}
 			else
