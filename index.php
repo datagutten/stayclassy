@@ -27,14 +27,22 @@ $title="{$guild['name']} - {$guild['realm']} ({$guild['level']})";
 .good {
 	background-color: #0C0;
 }
+.header {
+	text-align:center;
+	/*color: #<?Php echo substr($guild['emblem']['borderColor'],2); ?>;*/
+	color: #ffffff;
+	background-color: #<?Php echo substr($guild['emblem']['backgroundColor'],2); ?>;
+}
 </style>
 </head>
 
 <body>
 <div align="center">
 <img src="wowtools/tabardimage.php?realm=<?Php echo $guild['realm'];?>&guild=<?Php echo $guild['name']; ?>" />
+
 <?Php
 echo "<table border=\"1\">\n";
+echo "<tr><th colspan=\"8\" class=\"header\">$title</td></tr>"; //Display a row with the title
 
 array_unshift($classes['classes'],'header');
 
@@ -53,7 +61,7 @@ foreach($classes['classes'] as $classkey=>$class) //Class columns
 
 		if(!is_array($class))
 		{
-			$text=$race['name'];
+			echo "\t   <th>{$race['name']}</th>\n";
 			//print_r($race);
 		}
 		elseif(isset($combos[$race['id']][$class['id']]))
