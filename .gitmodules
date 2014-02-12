@@ -1,0 +1,3 @@
+[submodule "wowtools"]
+	path = wowtools
+	url = git@github.com:datagutten/wowtools.git

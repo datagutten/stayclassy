@@ -31,6 +31,8 @@ $title="{$guild['name']} - {$guild['realm']} ({$guild['level']})";
 </head>
 
 <body>
+<div align="center">
+<img src="wowtools/tabardimage.php?realm=<?Php echo $guild['realm'];?>&guild=<?Php echo $guild['name']; ?>" />
 <?Php
 echo "<table border=\"1\">\n";
 
@@ -106,5 +108,6 @@ foreach($classes['classes'] as $classkey=>$class) //Class columns
 }
 echo "</table>\n";
 ?>
+</div>
 </body>
 </html>
