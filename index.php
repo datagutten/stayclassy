@@ -1,5 +1,5 @@
 <?Php
-require 'guildinfo.php';
+require 'wowtools/guildinfo.php';
 $guildinfo=guildinfo($_GET['realm'],$_GET['guild']);
 $guild=$guildinfo['guild'];
 
