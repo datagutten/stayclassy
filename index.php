@@ -1,6 +1,9 @@
 <?Php
 require 'wowtools/guildinfo.php';
-$guildinfo=guildinfo($_GET['realm'],$_GET['guild']);
+if(isset($_GET['realm']) && isset($_GET['guild']))
+	$guildinfo=guildinfo($_GET['realm'],$_GET['guild']);
+else
+	$guildinfo=guildinfo("The Maelstrom","Revenga");
 $guild=$guildinfo['guild'];
 
 $races=json_decode(file_get_contents("http://eu.battle.net/api/wow/data/character/races"),true);
