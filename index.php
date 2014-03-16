@@ -1,5 +1,6 @@
 <?Php
 require 'wowtools/guildinfo.php';
+
 if(isset($_GET['realm']) && isset($_GET['guild']))
 	$guildinfo=guildinfo($_GET['realm'],$_GET['guild']);
 else
@@ -41,9 +42,9 @@ $title="{$guild['name']} - {$guild['realm']} ({$guild['level']})";
 
 <body>
 <div align="center">
-<img src="wowtools/tabardimage.php?realm=<?Php echo $guild['realm'];?>&guild=<?Php echo $guild['name']; ?>" />
-
 <?Php
+$basepath=dirname($_SERVER['PHP_SELF']);
+echo "<img src=\"{$basepath}/wowtools/tabardimage.php?realm={$guild['realm']}&amp;guild={$guild['name']}\" />";
 echo "<table border=\"1\">\n";
 echo "<tr><th colspan=\"8\" class=\"header\">$title</td></tr>"; //Display a row with the title
 
